@@ -25,7 +25,6 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
         Wait(500)
         Player.Functions.AddMoney('bank', amt)
         RefreshTransactions(src)
-        TriggerClientEvent("qb-banking:client:Notify", src, "info", "You have deposited $"..format_int(amount)) 
         TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", amount, "deposit", "N/A", (note ~= "" and note or "Deposited $"..format_int(amount).." cash."))
         return
     end
@@ -53,7 +52,6 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
             local deposit = math.floor(amount)
 
             Player.Functions.RemoveMoney('cash', deposit)
-            TriggerClientEvent("qb-banking:client:Notify", src, "info", "You have deposited $"..format_int(amount).." into ".. job.label.."'s business account.") 
             TriggerEvent("qb-banking:server:AddToMoneyLog", src, "business", amount, "deposit", job.label, (note ~= "" and note or "Deposited $"..format_int(amount).." cash into ".. job.label .."'s business account."))
 
             TriggerEvent('qb-banking:society:server:DepositMoney',src, deposit, data.name)
@@ -83,8 +81,7 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
             local deposit = math.floor(amount)
     
             Player.Functions.RemoveMoney('cash', deposit)
-            TriggerClientEvent("qb-banking:client:Notify", src, "info", "You have deposited $"..format_int(amount).." into ".. gang.label.."'s business account.") 
-            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "organization", amount, "deposit", gang.label, (note ~= "" and note or "Deposited $"..format_int(amount).." cash into ".. gang.label .."'s business account."))
+            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "organization", amount, "deposit", gang.label, (note ~= "" and note or "Deposited $"..format_int(amount).." cash into ".. gang.label .."'s account."))
     
             TriggerEvent('qb-banking:society:server:DepositMoney',src, deposit, data.name)
         end
