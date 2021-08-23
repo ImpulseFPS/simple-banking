@@ -4,6 +4,8 @@
 
 ###### This banking is NP 3.0 styled banking with busniss and gang accounts 
 
-![Alt text](/https://prnt.sc/1qe193t?raw=true "Optional Title")
+
+
+<blockquote class="imgur-embed-pub" lang="en" data-id="F8vP2qo"><a href="https://imgur.com/F8vP2qo">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 
