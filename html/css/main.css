@@ -17,7 +17,7 @@ html{
     opacity: 0;
     transition: 0.5s ease-in-out opacity;
     margin-top: 3%;
-    background-color: rgb(35, 44, 61);
+    background-color: #212832;
 }
 
 .hidden{
@@ -34,17 +34,17 @@ html{
 }
 
 .income {
-    color: rgb(0, 230, 0);
+    color: #92f075;
     text-shadow:  2px 2px rgba(0, 0, 0, 0.05);
 }
 
 .addition {
-    color: rgb(0, 230, 0);
+    color: #92f075;
     text-shadow: 2px 2px rgba(0, 0, 0, 0.05);
 }
 
 .expense {
-    color: rgb(211, 135, 49);
+    color: #f2a367;
     text-shadow:  2px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -62,36 +62,36 @@ p {
 }
 
 .deposit{
-    background: #6cd671;
+    background: #92f075;
     color: #000 !important;
     border: 0;
 }
 
 .withdraw{
-    background: #f09149;
+    background: #f2a367;
     color: #000 !important;
     border: 0;
 }
 
 .transfer{
-    background: #40c9eb;
+    background: #dfe0db;
     color: #000 !important;
     border: 0;
 }
 
 .deposit:hover{
-    background: #81DA68;
-    color: #fff!important;
+    background: #82d669;
+    color: #000 !important;
 }
 
 .withdraw:hover{
-    background: #C17438;
-    color: #fff !important;
+    background: #d9935d;
+    color: #000 !important;
 }
 
 .transfer:hover{
-    background: #3879D6;
-    color: #fff !important;
+    background: #c6c7c3;
+    color: #000 !important;
 }
 
 .container{
@@ -103,7 +103,7 @@ p {
     height: 800px;
     overflow-y: scroll;
     box-sizing: content-box;
-    background-color: rgb(35, 44, 61);
+    background-color: #212832;
 }
 
 .dark-modal, .modal-body, .modal-header, .modal-footer{
@@ -136,4 +136,15 @@ p {
   /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #212529;
+}
+
+.bgdark1 {
+    background-color: #30475c!important;
+}
+
+.bgdark2 {
+    background-color: #1e3956!important;
+    border: rgba(255, 255, 255, 0.5);
+    border-width: 1px;
+    border-style: solid;
 }
