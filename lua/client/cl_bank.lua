@@ -48,7 +48,7 @@ AddEventHandler('qb-banking:client:bank:openUI', function() -- this one bank fro
 		}, {}, {}, {}, function() -- Done
 			ToggleUI()
 		end, function()
-			QBCore.Functions.Notify('Canceld', 'warning')
+			QBCore.Functions.Notify('Canceled', 'warning')
 			TriggerEvent('animations:client:EmoteCommandStart', {"c"})
 		end)
 	end
@@ -67,7 +67,7 @@ AddEventHandler('qb-banking:client:atm:openUI', function() -- this opens ATM
 		}, {}, {}, {}, function() -- Done
 			ToggleUI()
 		end, function()
-			QBCore.Functions.Notify('Canceld', 'warning')
+			QBCore.Functions.Notify('Canceled', 'warning')
 			TriggerEvent('animations:client:EmoteCommandStart', {"c"})
 		end)
 	end
