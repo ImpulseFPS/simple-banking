@@ -8,8 +8,8 @@ local banks = {
 	{name="Bank", id=108, x=-112.202, y=6469.295, z=31.626},
 	{name="Bank", id=108, x=314.187, y=-278.621, z=54.170},
 	{name="Bank", id=108, x=-351.534, y=-49.529, z=49.042}, 
-	{name="Bank", id=106, x=241.61, y=225.12, z=106.286},
-	{name="Bank", id=108, x=1175.0643310547, y=2706.6435546875, z=38.094036102295}
+	{name="Bank", id=106, x=241.610, y=225.120, z=106.286},
+	{name="Bank", id=108, x=1175.064, y=2706.643, z=38.094}
 }	
 
 
@@ -26,7 +26,7 @@ Citizen.CreateThread(function()
 	  local blip = AddBlipForCoord(v.x, v.y, v.z)
 	  SetBlipSprite(blip, v.id)
 	  SetBlipDisplay(blip, 4)
-	  SetBlipScale  (blip, 0.75)
+	  SetBlipScale  (blip, 0.7)
 	  SetBlipColour (blip, 2)
 	  SetBlipAsShortRange(blip, true)
 	  BeginTextCommandSetBlipName("STRING")
@@ -40,7 +40,7 @@ AddEventHandler('qb-banking:client:bank:openUI', function() -- this one bank fro
 	if not bMenuOpen then
 		TriggerEvent('animations:client:EmoteCommandStart', {"ATM"})
 
-		QBCore.Functions.Progressbar("atm", "Bank", 4500, false, true, {
+		QBCore.Functions.Progressbar("bank", "Opening Bank", 4500, false, true, {
 			disableMovement = true,
 			disableCarMovement = true,
 			disableMouse = false,
@@ -59,7 +59,7 @@ AddEventHandler('qb-banking:client:atm:openUI', function() -- this opens ATM
 	if not bMenuOpen then
 		TriggerEvent('animations:client:EmoteCommandStart', {"ATM"})
 
-		QBCore.Functions.Progressbar("atm", "ATM", 4500, false, true, {
+		QBCore.Functions.Progressbar("atm", "Opening ATM", 4500, false, true, {
 			disableMovement = true,
 			disableCarMovement = true,
 			disableMouse = false,
