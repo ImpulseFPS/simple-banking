@@ -10,7 +10,7 @@
 ###### You do not need QB-moneysafe with this banking it has society coded in and only players with specific job/gang and grade can see the business and gang account
 
 ### Btw qb-target events are already in the cl_bank.lua for thoes who dont use qb-target sorry but you will have to make loops your self
-![Alt text](https://i.imgur.com/IfT1XkE.png "In-game screenshot")
+![Alt text](https://i.imgur.com/Eink1Ox.jpg "In-game screenshot")
 
 
 ### Adding grades to the config, adding override grades to the config
