@@ -12,41 +12,6 @@ local banks = {
 	{name="Bank", id=108, x=1175.0643310547, y=2706.6435546875, z=38.094036102295}
 }	
 
-local bModels = {
-    [-1126237515] = true,
-    [506770882] = true,
-    [-1364697528] = true,
-    [-870868698] = true,
-}
-
-local function nearBank()
-	local player = PlayerPedId()
-	local playerloc = GetEntityCoords(player)
-	
-	for _, search in pairs(banks) do
-		local distance = GetDistanceBetweenCoords(search.x, search.y, search.z, playerloc['x'], playerloc['y'], playerloc['z'], true)
-		
-		if distance <= 8 then
-			return true
-		end
-	end
-
-    return false
-end
-
-function nearATM()
-	local ply = PlayerPedId()
-	local pos = GetEntityCoords(ply, 0)
-  
-	for k,v in pairs(bModels) do
-		ATMObject = GetClosestObjectOfType(pos, 0.6, k, false)
-  
-		if DoesEntityExist(ATMObject) then
-			return true
-		end
-	end
-	return false
-end
 
 RegisterNetEvent("qb-banking:client:ExtNotify")
 AddEventHandler("qb-banking:client:ExtNotify", function(msg)
@@ -70,16 +35,9 @@ Citizen.CreateThread(function()
 	end
 end)
 
-RegisterNetEvent('qb-banking:client:Bank:Options')
-AddEventHandler('qb-banking:client:Bank:Options', function()
-	exports['qb-menu']:SetTitle("Bank")
-	exports['qb-menu']:AddButton("Open Bank" , "Access your bank account's" ,'qb-banking:client:bank:openUI')
-    exports['qb-menu']:AddButton("PayCheck" , "Pick up your paycheck" ,'QBCore:server:Paycheck:pickup')
-end)
-
 RegisterNetEvent('qb-banking:client:bank:openUI')
 AddEventHandler('qb-banking:client:bank:openUI', function() -- this one bank from target models
-	if nearBank() and not bMenuOpen then
+	if not bMenuOpen then
 		TriggerEvent('animations:client:EmoteCommandStart', {"ATM"})
 
 		QBCore.Functions.Progressbar("atm", "Bank", 4500, false, true, {
