@@ -1,31 +1,32 @@
 bMenuOpen = false 
 
 local isLoggedIn = false
-PlayerData = {}
+PlayerJob = {}
 PlayerGang = {}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
 AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-	PlayerData = QBCore.Functions.GetPlayerData()
-    PlayerGang = QBCore.Functions.GetPlayerData()
+	PlayerJob = QBCore.Functions.GetPlayerData().job
+    PlayerGang = QBCore.Functions.GetPlayerData().gang
 	isLoggedIn = true
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload')
 AddEventHandler('QBCore:Client:OnPlayerUnload', function()
 	isLoggedIn = false
-	PlayerData = {}
+	PlayerJob = {}
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate')
 AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
-	PlayerData.job = JobInfo
+	PlayerJob = JobInfo
     SendNUIMessage({type = "refresh_accounts"})
 end)
 
 RegisterNetEvent('QBCore:Client:OnGangUpdate')
 AddEventHandler('QBCore:Client:OnGangUpdate', function(GangInfo)
-    PlayerGang.gang = GangInfo
+    PlayerGang = GangInfo
+    SendNUIMessage({type = "refresh_accounts"})
 end)
 
 function ToggleUI()
