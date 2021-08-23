@@ -13,5 +13,31 @@
 ![Alt text](https://i.imgur.com/IfT1XkE.png "In-game screenshot")
 
 
+### Adding grades to the config, adding override grades to the config
+```lua
+SimpleBanking.Config["business_ranks"] = {  -- Here you add default grades for boss to get access to the account NOTE that grades need to be lower case.
+    ["owner"] = true,
+    ["coowner"] = true,
+    ["chief"] = true,
+    ["boss"] = true,
+}
+```
+###### Same thing goes for gang accounts, You can add default grades under business_ranks and add override grades for example
+```lua
+SimpleBanking.Config["business_ranks_overrides"] = {
+    ["lostmc"] = { -- this is example for adding more then one grade to access the account for gangs
+        ["boss"] = true,
+        ["shot caller"] = true,
+    }
+}
 
+SimpleBanking.Config["business_ranks_overrides"] = {
+    ["police"] = { -- example for adding more then one grade to access the account for job
+        ["chief"] = true,
+        ["lieutenant"] = true,
+        ["sergeant"] = true,
+    }
+}
+
+```
 
