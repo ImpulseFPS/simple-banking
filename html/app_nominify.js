@@ -160,7 +160,7 @@ function AddTransaction(trans_id, account, amount, time, note, why, receiver, pl
                         <p class='header-title'> " + lang[account] + "</p>\
                     </div>\
                     <div class='col d-flex justify-content-end'>\
-                        <p class='header-title'><span class='badge bg-primary'>Bank Transfer</span> <> <span class='badge bg-dark'>" + lang[why] + "</span></p>\
+                        <p class='header-title'><span class='badge bg-primary'>Bank Transfer</span> <> <span class='badge bgdark1'>" + lang[why] + "</span></p>\
                     </div>\
                     <hr/>\
                     <div class='col-2'>\
