@@ -4,6 +4,6 @@
 
 ###### This banking is NP 3.0 styled banking with busniss and gang accounts 
 
-![Alt text](https://prnt.sc/1qe193t "In Game screen-shot")
+![Alt text](/https://prnt.sc/1qe193t?raw=true "Optional Title")
 
 
