@@ -58,7 +58,7 @@ function AddAccount(account_name, account_type, bal, ply_Name, steamID)
         return UpdateAccount(temp_Name, bal);
 
     $("#Player_Accounts").append("<div id='"+temp_Name+"'\
-        <div class='card bg-dark'>\
+        <div class='card bgdark2'>\
             <div class='account'>\
                 <h5 class='card-title note'>" + account_name + (relang[account_type] === "personal" && " </i>" || "") + "</h5>\
                 <p class='card-subtitle note'>" + account_type + "</p>\
@@ -128,7 +128,7 @@ function addNote(note)
 {
     return "<div>\
         <hr>\
-            <h6 class='note'>Note</h6>\
+            <h6 class='note'>Message</h6>\
             <p class='note'>" + htmlEncode(note) + "</p>\
         </hr>\
     </div>"
@@ -151,7 +151,7 @@ function AddTransaction(trans_id, account, amount, time, note, why, receiver, pl
 
     let str = (amount.toString().charAt(0) === "-" && "-$" + parseInt(amount.toString().substring(1, amount.length)).toLocaleString() || "+$" + amount.toLocaleString())
     $("#Transaction_Row").prepend("\
-        <div class='card bg-dark mb-2'>\
+        <div class='card bgdark1 mb-2'>\
             <div class='card-body'>\
                 <div class='col'>\
                 <!-- Header -->\
