@@ -1,0 +1,184 @@
+<html>
+	<head>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link href="css/main.css" rel="stylesheet">
+		<style>
+			#depositUI, #withdrawUI, #transferUI, #general, #topbar, #waiting
+			{display: none;}
+		</style>
+	</head>
+	<body>
+		<div id='bankui' class='container'>
+			<div class="container-fluid bg-dark text-white">
+				<div class="row">
+					<div class="col-4 mt-2">
+						<h4 class="game-header">Accounts</h4>
+					</div>
+					<div class="col mt-2">
+						<!-- Header -->
+						<div class="row game-header">
+							<div class="col">
+								<h4 class="header-title">Transaction History</h4>
+							</div>
+							<div class="col d-flex justify-content-end">
+								<img class="media-object h-50" src="img/bank.png" alt="...">
+								<h4 class="header-title">&nbsp;Los Santos Bank</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="row g-2">
+						<div class="col-4 scroll_panel" id="Player_Accounts">
+						</div>
+						<div class="col scroll_panel">
+							<div class="row">
+								<div id="Transaction_Row" class="col">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Modals -->
+		<!-- Deposit Modal -->
+		<div class="modal fade" id="DepositModal" role="dialog" data-backdrop="true" data-keyboard="true">
+			<div class="modal-dialog  modal-dialog-centered">
+				<div class="modal-content dark-modal">
+					<div class="modal-header">
+						<h5 class="modal-title">Bank Deposit</h5>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+                        <div class="form-group">
+                            <label for="depositAmount">How much do you want to deposit?</label>
+                            <input type="number" min="0" class="form-control" id="depositAmount" aria-describedby="depositHelp" placeholder="$10,000" required>
+                            <small id="depositHelp" class="form-text text-muted">How much do you want to deposit to your bank account?</small>
+							<br/>
+							<label for="depositNote">Note (optional)</label>
+							<input type="text" class="form-control" id="depositNote" placeholder="Sold a car">
+                        </div>
+					</div>
+					<div class="modal-footer">
+                        <button type="button" class="btn btn-primary" OnClick="confirmDeposit()">Confirm</button>
+						<button id="deposit_Cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Withdrawal modal-->
+		<div class="modal fade" id="WithdrawModal" role="dialog" data-backdrop="true" data-keyboard="true">
+			<div class="modal-dialog  modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Bank Withdrawal</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+                        <div class="form-group">
+                            <label for="depositAmount">How much do you want to withdraw?</label>
+                            <input type="number" min="0" class="form-control" id="withdrawAmount" aria-describedby="withdrawHelp" placeholder="$10,000" required>
+                            <small id="withdrawHelp" class="form-text text-muted">How much do you want to withdraw from your bank account?</small>
+
+
+							<label for="withdrawNote">Note (optional)</label>
+							<input type="text" class="form-control" id="withdrawNote" placeholder="Purchasing a car">
+                        </div>
+					</div>
+					<div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onClick="confirmWithdraw()">Confirm</button>
+						<button id="withdraw_Cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Transfer Modal -->
+		<div class="modal fade" id="TransferModal" role="dialog" data-backdrop="true" data-keyboard="true">
+			<div class="modal-dialog  modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Bank Transfer</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+                        <div class="form-group">                    
+							<label for="transferID">Player ID</label>
+							<input type="number" min="1" class="form-control" id="transferID" aria-describedby="transferHelp" placeholder="$10,000" required>
+							<small id="transferHelp" class="form-text text-muted">The players ID. (Hold Z to get their ID)</small>
+
+							<label for="transferAmount">How much do you want to transfer?</label>
+                            <input type="number" min="0" class="form-control" id="transferAmount" placeholder="$10,000" required>
+
+							<label for="transferNote">Note (optional)</label>
+							<input type="text" class="form-control" id="transferNote" placeholder="Purchased a car">
+                        </div>
+					</div>
+					<div class="modal-footer">
+                        <button type="button" onClick="confirmTransfer()" class="btn btn-primary">Confirm</button>
+						<button id="transfer_Cancel" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Modals -->
+		<!-- Notifications -->
+		<div class="modal fade" id="notificationModal" data-backdrop="true">
+			<div class="modal-dialog modal-sm modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+					   <h4 class="modal-title" id='notifaction_type'>Error!</h4>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" onClick="closeNotification()">&times;</button>
+					</div>
+				   <div class="modal-body">
+					 <p id='notification_msg'></p>
+				   </div>
+				</div>
+		   </div>
+		 </div>
+		<!-- End Notifications -->
+
+		<!-- Edit Account Modal -->
+		<div class="modal fade" id="editAccountModal" data-backdrop="true">
+			<div class="modal-dialog modal modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+					   <h4 class="modal-title" id='notifaction_type'>Editing Personal Account</h4>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" onClick="closeNotification(true)">&times;</button>
+					</div>
+				   <div class="modal-body">
+					<table class="table text-white">
+						<thead>
+						  <tr>
+							<th scope="col">Name</th>
+							<th scope="col">Given Access</th>
+							<th scope="col">Actions</th>
+						  </tr>
+						</thead>
+						<tbody id="who_has_access">
+						  <tr>
+							<td>Blake Carter</td>
+							<td>N/A</td>
+							<td><button class="btn btn-danger btn-sm">Remove</button></td>
+						  </tr>
+						</tbody>
+					  </table>
+				   </div>
+				</div>
+		   </div>
+		 </div>
+		<!-- End Edit Account Modal-->
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script src='app.js'></script>
+	</body>
+</html>
