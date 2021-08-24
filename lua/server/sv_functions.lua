@@ -29,7 +29,7 @@ function RefreshTransactions(source)
 
     local CitizenId = Player.PlayerData.citizenid
 
-    exports['ghmattimysql']:execute("SELECT * FROM `transaction_history` WHERE `citizenid` = @myID AND DATE(date) > (NOW() - INTERVAL "..SimpleBanking.Config["Days_Transaction_History"].." DAY) ORDER BY `id` ASC;",
+    exports['ghmattimysql']:execute("SELECT * FROM `transaction_history` WHERE `citizenid` = @myID AND DATE(date) > (NOW() - INTERVAL "..SimpleBanking.Config["Days_Transaction_History"].." DAY)",
     {
         ["@myID"] = CitizenId
     }, function(data)
