@@ -34,7 +34,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
         Player.Functions.RemoveMoney('bank', amount)
         targetPly.Functions.AddMoney('bank', math.floor(amount))
 
-        TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.getName())
+        TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname)
         TriggerEvent("qb-banking:server:AddToMoneyLog", target.PlayerData.source, "personal", amount, "transfer", Player.PlayerData.charinfo.firstname, "Received $" .. format_int(amount) .. " from " ..Player.PlayerData.charinfo.firstname)
     end
 
