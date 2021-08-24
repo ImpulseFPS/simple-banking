@@ -9,12 +9,14 @@ AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
 	PlayerJob = QBCore.Functions.GetPlayerData().job
     PlayerGang = QBCore.Functions.GetPlayerData().gang
 	isLoggedIn = true
+    SendNUIMessage({type = "refresh_accounts"})
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload')
 AddEventHandler('QBCore:Client:OnPlayerUnload', function()
 	isLoggedIn = false
 	PlayerJob = {}
+    SendNUIMessage({type = "refresh_accounts"})
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate')
