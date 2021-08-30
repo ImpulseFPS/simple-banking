@@ -36,7 +36,7 @@ TriggerEvent('qb-banking:society:server:DepositMoney', src, AMOUNT , 'police')
 TriggerEvent('qb-banking:society:server:DepositMoney', src, price , 'police')
 ```
 ###### Now why did i do it with src when its triggering the server event, its because of that event security
-###### A lot of people asked me why is src as an arg to pass to the event so if on that event there is no source or src event wont run so that so dipshit with hack's
+###### A lot of people asked me why is src as an arg to pass to the event so if on that event there is no source or src event wont run so that some dipshit with hack's
 ###### cant just keep spaming the event and basicly spawn money into the account.
 
 ### Adding grades to the config, adding override grades to the config
