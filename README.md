@@ -20,7 +20,9 @@ TriggerEvent('qb-banking:society:server:DepositMoney', src, AMOUNT , JOBNAME)
 
 ###### first lets start with AMOUNT you need to replace that for example 
 ###### You have an event that is passing args like this
-### RegisterServerEvent('qb-burgershotjob:server:register', function(id, price)
+```lua
+ RegisterServerEvent('qb-burgershotjob:server:register', function(id, price)
+```
 ##### now in the event AMOUNT should be replace with price
 ```lua
 TriggerEvent('qb-banking:society:server:DepositMoney', src, price , JOBNAME)
