@@ -31,7 +31,7 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
                 tbl[#tbl + 1] = {
                     type = "business",
                     name = job.label,
-                    amount = data.money or 0
+                    amount = format_int(data.money) or 0
                 }
             end
         end
@@ -49,7 +49,7 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
                 tbl[#tbl + 1] = {
                     type = "organization",
                     name = gang.label,
-                    amount = data.money or 0
+                    amount = format_int(data.money) or 0
                 }
             end
         end
