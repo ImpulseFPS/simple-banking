@@ -370,7 +370,6 @@ Listeners["update_transactions"] = function(data)
 
 Listeners["refresh_balances"] = function(data) {
     let tbl = JSON.parse(data.accounts);
-    console.log("refresh_balances?", data); 
     for (var i = 0; i < tbl.length; i++)
     {
         let tTbl = tbl[i];
@@ -379,12 +378,9 @@ Listeners["refresh_balances"] = function(data) {
         let temp_name = account_name.replace(/"|'/g,'');
         let temp_Name = account_name.replace(/\s+/g, '');
 
-        console.log("Updating?")
-        console.log(temp_name, temp_Name)
         if (ValidAccounts[temp_Name])
         {
             UpdateAccount(temp_Name, tTbl.amount)
-            console.log("updated");
         }
 
     }

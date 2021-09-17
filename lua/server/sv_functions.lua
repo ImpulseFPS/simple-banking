@@ -6,16 +6,16 @@ AddEventHandler("qb-banking:server:AddToMoneyLog", function(source, sAccount, iA
 
     local iTransactionID = math.random(1000, 100000)
 
-    exports['ghmattimysql']:execute("INSERT INTO `transaction_history` (`citizenid`, `trans_id`, `account`, `amount`, `trans_type`, `receiver`, `message`) VALUES(@myID, @transid, @account, @amount, @type, @receiver, @message);", {
-        ["@myID"] = CitizenId,
-        ["@transid"] = iTransactionID,
-        ["@account"] = sAccount,
-        ["@amount"] = iAmount,
-        ["@type"] = sType,
-        ["@receiver"] = sReceiver,
-        ["@message"] = sMessage
+    exports["oxmysql"]:insert("INSERT INTO `transaction_history` (`citizenid`, `trans_id`, `account`, `amount`, `trans_type`, `receiver`, `message`) VALUES(?, ?, ?, ?, ?, ?, ?)", {
+        CitizenId,
+        iTransactionID,
+        sAccount,
+        iAmount,
+        sType,
+        sReceiver,
+        sMessage
     }, function()
-        RefreshTransactions(source)
+        RefreshTransactions(src)
     end)
 end)
 
@@ -27,14 +27,9 @@ function RefreshTransactions(source)
 
     if not Player then return end
 
-    local CitizenId = Player.PlayerData.citizenid
+    local result = exports["oxmysql"]:executeSync("SELECT * FROM transaction_history WHERE citizenid =  ? AND DATE(date) > (NOW() - INTERVAL "..SimpleBanking.Config["Days_Transaction_History"].." DAY)", {Player.PlayerData.citizenid})
 
-    exports['ghmattimysql']:execute("SELECT * FROM `transaction_history` WHERE `citizenid` = @myID AND DATE(date) > (NOW() - INTERVAL "..SimpleBanking.Config["Days_Transaction_History"].." DAY) ORDER BY `id` ASC;",
-    {
-        ["@myID"] = CitizenId
-    }, function(data)
-        if (not data) then return end
-
-        TriggerClientEvent("qb-banking:client:UpdateTransactions", source, data)
-    end)
+    if result ~= nil then
+        TriggerClientEvent("qb-banking:client:UpdateTransactions", src, result)
+    end
 end

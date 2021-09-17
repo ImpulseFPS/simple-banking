@@ -13,7 +13,6 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
     local TransactionHistory = {}
     local TransactionRan = false
     local tbl = {}
-
     tbl[1] = {
         type = "personal",
         amount = PlayerMoney
@@ -24,10 +23,10 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
     if (job.name and job.grade.name) then
         if(SimpleBanking.Config["business_ranks"][string.lower(job.grade.name)] or SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)] and SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)][string.lower(job.grade.name)]) then
             
-            local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = job.name})
+            local result =  exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {job.name})
             local data = result[1]
-            
-            if data then
+
+            if data ~= nil then
                 tbl[#tbl + 1] = {
                     type = "business",
                     name = job.label,
@@ -42,10 +41,10 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
     if (gang.name and gang.grade.name) then
         if(SimpleBanking.Config["business_ranks"][string.lower(gang.grade.name)] or SimpleBanking.Config["business_ranks_overrides"][string.lower(gang.name)] and SimpleBanking.Config["business_ranks_overrides"][string.lower(gang.name)][string.lower(gang.grade.name)]) then
 
-            local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = gang.name})
+            local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {gang.name})
             local data = result[1]
-            
-            if data then
+
+            if data ~= nil then
                 tbl[#tbl + 1] = {
                     type = "organization",
                     name = gang.label,
@@ -55,18 +54,17 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
         end
     end
 
+    local result = exports["oxmysql"]:executeSync("SELECT * FROM transaction_history WHERE citizenid =  ? AND DATE(date) > (NOW() - INTERVAL "..SimpleBanking.Config["Days_Transaction_History"].." DAY)", {Player.PlayerData.citizenid})
 
-    exports.ghmattimysql:execute("SELECT * FROM `transaction_history` WHERE `citizenid` = @myID AND DATE(date) > (NOW() - INTERVAL "..SimpleBanking.Config["Days_Transaction_History"].." DAY)", {
-        ["@myID"] = CitizenId,
-    }, function(data)
+    if result ~= nil then
         TransactionRan = true
-        TransactionHistory = data
-    end)
+        TransactionHistory = result
+    end
+
 
     repeat
         Wait(0)
     until 
         TransactionRan
-
     cb(tbl, TransactionHistory)
 end)
