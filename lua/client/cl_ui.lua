@@ -106,12 +106,11 @@ end)
 RegisterNetEvent("qb-banking:client:UpdateTransactions")
 AddEventHandler("qb-banking:client:UpdateTransactions", function(transactions)
     if (bMenuOpen) then
-        print("Sent update")
+
         SendNUIMessage({type = 'update_transactions', transactions = json.encode(transactions)})
 
         QBCore.Functions.TriggerCallback("qb-banking:server:GetBankData", function(data, transactions)
             local PlayerBanks = json.encode(data)
-
             SendNUIMessage({type = "refresh_balances", accounts = PlayerBanks})
         end)
     end

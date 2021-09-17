@@ -4,7 +4,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
     local Player = QBCore.Functions.GetPlayer(src)
 
     target = target ~= nil and tonumber(target) or nil
-    if not target or target <= 0 or target == source then
+    if not target or target <= 0 or target == src then
         return
     end
 
@@ -16,7 +16,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
         return
     end
 
-    if (target == source) then
+    if (target == src) then
         return
     end
 
@@ -52,7 +52,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             return
         end
 
-        local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = job.name})
+        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {job.name})
         local data = result[1]
         if data then
             local society = data.name
@@ -78,7 +78,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             return
         end
 
-        local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = gang.name})
+        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
         if data then
             local society = data.name

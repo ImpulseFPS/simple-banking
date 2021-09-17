@@ -1,5 +1,5 @@
 function GetSociety(name)
-    local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = name}) --exports['ghmattimysql']:execute("SELECT * FROM `society` WHERE `name` ='"..name.."' ")
+    local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {name}) --exports['ghmattimysql']:execute("SELECT * FROM `society` WHERE `name` ='"..name.."' ")
     local data = result[1]
 
     return data
@@ -18,8 +18,8 @@ AddEventHandler('qb-banking:society:server:WithdrawMoney', function(pSource, a, 
     local sMoney = tonumber(s.money)
     local amount = tonumber(a)
     local withdraw = sMoney - amount
-
-    exports.ghmattimysql:execute("UPDATE society SET money = '"..withdraw.."' WHERE name = '"..n.."'")
+    --exports["oxmysql"]:execute("UPDATE society SET money = '"..withdraw.."' WHERE name = '"..n.."'")
+    exports["oxmysql"]:execute("UPDATE society SET money =  ? WHERE name = ?", {withdraw, n})
 end)
 
 RegisterServerEvent('qb-banking:society:server:DepositMoney')
@@ -36,5 +36,5 @@ AddEventHandler('qb-banking:society:server:DepositMoney', function(pSource, a, n
     local deposit = sMoney + amount
 
     
-    exports.ghmattimysql:execute("UPDATE society SET money = '"..deposit.."' WHERE name = '"..n.."'")
+    exports["oxmysql"]:execute("UPDATE society SET money =  ? WHERE name = ?", {deposit, n})
 end)

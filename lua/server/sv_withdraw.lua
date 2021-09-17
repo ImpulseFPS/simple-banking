@@ -9,7 +9,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
     end
 
     if not amount or tonumber(amount) <= 0 then
-        TriggerClientEvent("qb-banking:client:Notify", source, "error", "Invalid amount!") 
+        TriggerClientEvent("qb-banking:client:Notify", src, "error", "Invalid amount!") 
         return
     end
 
@@ -17,7 +17,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
 
     if account == "personal" then
         if amount > Player.PlayerData.money["bank"] then
-            TriggerClientEvent("qb-banking:client:Notify", source, "error", "Your bank doesn't have this much money!") 
+            TriggerClientEvent("qb-banking:client:Notify", src, "error", "Your bank doesn't have this much money!") 
             return
         end
         local withdraw = math.floor(amount)
@@ -25,8 +25,8 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
         Player.Functions.AddMoney('cash', withdraw)
         Player.Functions.RemoveMoney('bank', withdraw)
 
-        RefreshTransactions(source)
-        TriggerEvent("qb-banking:server:AddToMoneyLog", source, "personal", -amount, "withdraw", "N/A", (note ~= "" and note or "Withdrew $"..format_int(amount).." cash."))
+        RefreshTransactions(src)
+        TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "withdraw", "N/A", (note ~= "" and note or "Withdrew $"..format_int(amount).." cash."))
     end
 
     if(account == "business") then
@@ -44,7 +44,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             return
         end
 
-        local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = job.name})
+        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name = ?', {job.name})
         local data = result[1]
 
         if data then
@@ -75,7 +75,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             return
         end
 
-        local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = gang.name})
+        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
 
         if data then
