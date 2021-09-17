@@ -5,8 +5,6 @@
 
 ###### This banking is NP 3.0 styled banking with business and gang accounts 
 
-### Some parts of the code might be dodo because .lua files were done really quickly (it will get updated) for .js everyone is welcome to make a PR to improve it because I'm not really good with js so yea f me bruh lol
-
 ###### You do not need QB-moneysafe with this banking it has society coded in and only players with specific job/gang and grade can see the business and gang account
 
 ### Btw qb-target events are already in the cl_bank.lua for thoes who dont use qb-target sorry but you will have to make loops your self
