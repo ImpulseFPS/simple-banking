@@ -45,7 +45,7 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
         end
 
 
-        local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = job.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {job.name})
         local data = result[1]
 
         if data then
@@ -74,7 +74,7 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
         end
     
     
-        local result = exports['ghmattimysql']:executeSync('SELECT * FROM society WHERE name=@name', {['@name'] = gang.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
     
         if data then
