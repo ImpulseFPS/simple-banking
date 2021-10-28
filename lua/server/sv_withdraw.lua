@@ -44,7 +44,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             return
         end
 
-        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name = ?', {job.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name = ?', {job.name})
         local data = result[1]
 
         if data then
@@ -75,7 +75,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             return
         end
 
-        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {gang.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
 
         if data then

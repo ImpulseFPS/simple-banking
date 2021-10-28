@@ -9,9 +9,9 @@ function UpdateAccount(divId, bal)
     $("#" + divId + "_Balance").html("$" + bal.toLocaleString());
 }
 
-let GlobalSteamID = "";
+//let GlobalSteamID = "";
 
-function ResetModals(type, sSteamID)
+function ResetModals(type)
 {
     
     // Amounts
@@ -27,8 +27,8 @@ function ResetModals(type, sSteamID)
 
     curAccount = type;
 
-    if (sSteamID && sSteamID !== "undefined")
-        GlobalSteamID = sSteamID;
+    //if (sSteamID && sSteamID !== "undefined")
+       // GlobalSteamID = sSteamID;
 }
 
 var lang = [];
@@ -44,7 +44,7 @@ relang["Personal Account"] = "personal";
 relang["Buisness Account"] = "business";
 relang["Organization Account"] = "organization";
 
-function AddAccount(account_name, account_type, bal, ply_Name, steamID)
+function AddAccount(account_name, account_type, bal, ply_Name)
 {
     if (playerName == null || playerName === "")
         playerName = ply_Name;
@@ -82,9 +82,9 @@ function AddAccount(account_name, account_type, bal, ply_Name, steamID)
 \
                 <hr>\
                 <div class='d-flex justify-content-between'>\
-                    <button type='button' class='btn btn-light mb-2 text-muted deposit' data-toggle='modal' data-target='#DepositModal' onClick='ResetModals(\"" + transferAcc + "\", \"" + steamID + "\")'>DEPOSIT</button>\
-                    <button type='button' class='btn btn-light mb-2 text-muted withdraw' data-toggle='modal' data-target='#WithdrawModal' onClick='ResetModals(\"" + transferAcc + "\", \"" + steamID + "\")'>WITHDRAW</button>\
-                    <button type='button' class='btn btn-light mb-2 text-muted transfer' data-toggle='modal' data-target='#TransferModal' onClick='ResetModals(\"" + transferAcc + "\", \"" + steamID + "\")'>TRANSFER</button>\
+                    <button type='button' class='btn btn-light mb-2 text-muted deposit' data-toggle='modal' data-target='#DepositModal' onClick='ResetModals(\"" + transferAcc + "\", \"" + "\")'>DEPOSIT</button>\
+                    <button type='button' class='btn btn-light mb-2 text-muted withdraw' data-toggle='modal' data-target='#WithdrawModal' onClick='ResetModals(\"" + transferAcc + "\", \"" + "\")'>WITHDRAW</button>\
+                    <button type='button' class='btn btn-light mb-2 text-muted transfer' data-toggle='modal' data-target='#TransferModal' onClick='ResetModals(\"" + transferAcc + "\", \"" + "\")'>TRANSFER</button>\
                 </div>\
             </div>\
     </div><br/></div>");
@@ -228,7 +228,6 @@ function confirmDeposit()
         account: curAccount,
         amount: amount,
         note: note,
-        steamid: GlobalSteamID
     }));
 }
 
@@ -247,7 +246,6 @@ function confirmWithdraw()
         account: curAccount,
         amount: amount,
         note: note,
-        steamid: GlobalSteamID
     })); 
 }
 
@@ -270,7 +268,6 @@ function confirmTransfer()
         amount: amount,
         target: tTarget,
         note: note,
-        steamid: GlobalSteamID
     }));
 }
 

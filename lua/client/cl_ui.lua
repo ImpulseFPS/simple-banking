@@ -62,7 +62,7 @@ RegisterNUICallback("DepositCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Deposit", data.account, data.amount, (data.note ~= nil and data.note or ""), (data.steamid ~= nil and data.steamid or ""))
+    TriggerServerEvent("qb-banking:server:Deposit", data.account, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 RegisterNUICallback("WithdrawCash", function(data, cb)
@@ -74,7 +74,7 @@ RegisterNUICallback("WithdrawCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Withdraw", data.account, data.amount, (data.note ~= nil and data.note or ""), (data.steamid ~= nil and data.steamid or ""))
+    TriggerServerEvent("qb-banking:server:Withdraw", data.account, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 RegisterNUICallback("TransferCash", function(data, cb)
@@ -90,7 +90,7 @@ RegisterNUICallback("TransferCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Transfer", data.target, data.account, data.amount, (data.note ~= nil and data.note or ""), (data.steamid ~= nil and data.steamid or ""))
+    TriggerServerEvent("qb-banking:server:Transfer", data.target, data.account, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 
