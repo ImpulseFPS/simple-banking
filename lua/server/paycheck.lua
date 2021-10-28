@@ -13,7 +13,7 @@ AddEventHandler('qb-banking:server:sendPaycheck', function(pAmount, pSource)
     local result = exports["oxmysql"]:executeSync("SELECT paycheck FROM players WHERE citizenid = ?", {citizenid})
     local data = result[1]
     if data ~= nil then
-        TriggerClientEvent("QBCore:Notify",src,"Dobio si Plaća od €"..total.." (- 15% poreza)", 'primary')
+        TriggerClientEvent("QBCore:Notify",src,"You recived paycheck of €"..total.." (- 15% tax)", 'primary')
         local setter = exports["oxmysql"]:executeSync("UPDATE players SET paycheck = paycheck + @amount WHERE citizenid = @citizenid",{ ['citizenid'] = citizenid, ['amount'] = total})
     end
 
