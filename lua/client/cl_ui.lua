@@ -1,5 +1,6 @@
 bMenuOpen = false 
 
+QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = false
 PlayerJob = {}
 PlayerGang = {}
