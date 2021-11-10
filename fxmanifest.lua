@@ -2,7 +2,6 @@ fx_version 'cerulean'
 games { 'gta5' }
 
 shared_scripts {
-    '@qb-core/import.lua',
     'lua/shared/sh_*.lua',
 }
 
