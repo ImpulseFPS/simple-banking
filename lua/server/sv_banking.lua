@@ -1,4 +1,4 @@
---// Callback to open server menu \\--
+QBCore = exports['qb-core']:GetCoreObject()
 QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source, cb)
     local src = source
     if not src then return end
