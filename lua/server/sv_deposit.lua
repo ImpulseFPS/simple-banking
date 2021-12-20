@@ -12,8 +12,8 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
         return
     end
 
-    amount = tonumber(amount)
-    if math.floor(amount) >= Player.PlayerData.money["cash"] then
+    local amount = tonumber(amount)
+    if amount > Player.PlayerData.money["cash"] then
         TriggerClientEvent("qb-banking:client:Notify", src, "error", "You can't afford this!") 
         return
     end
