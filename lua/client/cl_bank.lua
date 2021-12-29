@@ -35,12 +35,13 @@ Citizen.CreateThread(function()
 	end
 end)
 
+
 RegisterNetEvent('qb-banking:client:bank:openUI')
 AddEventHandler('qb-banking:client:bank:openUI', function() -- this one bank from target models
 	if not bMenuOpen then
 		TriggerEvent('animations:client:EmoteCommandStart', {"ATM"})
 
-		QBCore.Functions.Progressbar("atm", "Opening ATM", 4500, false, true, {
+		QBCore.Functions.Progressbar("atm", "Opening Bank", 4500, false, true, {
 			disableMovement = true,
 			disableCarMovement = true,
 			disableMouse = false,

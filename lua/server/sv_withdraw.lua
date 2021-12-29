@@ -25,8 +25,8 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
         Player.Functions.AddMoney('cash', withdraw)
         Player.Functions.RemoveMoney('bank', withdraw)
 
+        AddTransaction(src, "personal", -amount, "withdraw", "N/A", (note ~= "" and note or "Isplačeno €"..format_int(amount).."."))
         RefreshTransactions(src)
-        TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "withdraw", "N/A", (note ~= "" and note or "Withdrew $"..format_int(amount).." cash."))
     end
 
     if(account == "business") then
@@ -44,7 +44,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             return
         end
 
-        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name = ?', {job.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name = ?', {job.name})
         local data = result[1]
 
         if data then
@@ -52,7 +52,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             if sM >= amount then
                 TriggerEvent('qb-banking:society:server:WithdrawMoney',src, amount, data.name)
 
-                TriggerEvent("qb-banking:server:AddToMoneyLog", src, "business", -amount, "deposit", job.label, (note ~= "" and note or "Withdrew $"..format_int(amount).." from ".. job.label .."'s account."))
+                AddTransaction(src, "business", -amount, "deposit", job.label, (note ~= "" and note or "Withdrew €"..format_int(amount).." from ".. job.label .."'s account."))
                 Player.Functions.AddMoney('cash', amount)
             else
                 TriggerClientEvent("qb-banking:client:Notify", src, "error", "Not enough money current balance: €"..sM) 
@@ -75,7 +75,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             return
         end
 
-        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {gang.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
 
         if data then
@@ -83,7 +83,7 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
             if sM >= amount then
                 TriggerEvent('qb-banking:society:server:WithdrawMoney',src, amount, data.name)
 
-                TriggerEvent("qb-banking:server:AddToMoneyLog", src, "organization", -amount, "deposit", gang.label, (note ~= "" and note or "Withdrew $"..format_int(amount).." from ".. gang.label .."'s account."))
+                AddTransaction(src, "organization", -amount, "deposit", gang.label, (note ~= "" and note or "Withdrew €"..format_int(amount).." from ".. gang.label .."'s account."))
                 Player.Functions.AddMoney('cash', amount)
             else
                 TriggerClientEvent("qb-banking:client:Notify", src, "error", "Not enough money current balance: €"..sM) 

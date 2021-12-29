@@ -8,14 +8,13 @@ SimpleBanking.Config["business_ranks"] = { -- what ranks can see the society acc
     ["owner"] = true,
     ["coowner"] = true, -- Add additionals like I have here, don't forget the comma. Job rank must be lowercase!
     ["chief"] = true,
-    ["boss"] = true,
+    ["Šef Radione"] = true,
+    ['Menađer Auto Salona'] = true,
 }
 
 
 SimpleBanking.Config["business_ranks_overrides"] = {
     ["mechanic"] = { -- If you want a certain company to use custom job ranks, add them like below. otherwise, it defaults back to business_ranks
-        ["owner"] = true,
-        ["coowner"] = true,
-        ["manager"] = true,
-    }
+
+    },
 }

@@ -34,8 +34,8 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
         Player.Functions.RemoveMoney('bank', amount)
         targetPly.Functions.AddMoney('bank', math.floor(amount))
 
-        TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname)
-        TriggerEvent("qb-banking:server:AddToMoneyLog", targetPly.PlayerData.source, "personal", amount, "transfer", Player.PlayerData.charinfo.firstname, "Received $" .. format_int(amount) .. " from " ..Player.PlayerData.charinfo.firstname)
+        AddTransaction(src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname)
+        AddTransaction(targetPly.PlayerData.source, "personal", amount, "transfer", Player.PlayerData.charinfo.firstname, "Received $" .. format_int(amount) .. " from " ..Player.PlayerData.charinfo.firstname)
     end
 
     if (account == "business") then
@@ -52,7 +52,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             return
         end
 
-        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {job.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {job.name})
         local data = result[1]
         if data then
             local society = data.name
@@ -60,7 +60,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             TriggerEvent('qb-banking:society:server:WithdrawMoney', src, amount, society)
             Wait(50)
             targetPly.Functions.AddMoney('cash', amount)
-            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. job.label .. "'s account")
+            AddTransaction(src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. job.label .. "'s account")
         end
     end
 
@@ -78,7 +78,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             return
         end
 
-        local result = exports["oxmysql"]:fetchSync('SELECT * FROM society WHERE name= ?', {gang.name})
+        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
         if data then
             local society = data.name
@@ -86,7 +86,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             TriggerEvent('qb-banking:society:server:WithdrawMoney', src, amount, society)
             Wait(50)
             targetPly.Functions.AddMoney('cash', amount)
-            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. gang.label .. "'s account")
+            AddTransaction(src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. gang.label .. "'s account")
         end
     end
 end)

@@ -1,5 +1,4 @@
-RegisterNetEvent("qb-banking:server:AddToMoneyLog")
-AddEventHandler("qb-banking:server:AddToMoneyLog", function(source, sAccount, iAmount, sType, sReceiver, sMessage, cb)
+function AddTransaction(source, sAccount, iAmount, sType, sReceiver, sMessage, cb)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     local CitizenId = Player.PlayerData.citizenid
@@ -17,7 +16,7 @@ AddEventHandler("qb-banking:server:AddToMoneyLog", function(source, sAccount, iA
     }, function()
         RefreshTransactions(src)
     end)
-end)
+end
 
 function RefreshTransactions(source)
     local src = source

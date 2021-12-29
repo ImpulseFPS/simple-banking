@@ -1,32 +1,28 @@
 bMenuOpen = false 
 
+QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = false
 PlayerJob = {}
 PlayerGang = {}
 
-RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
-	PlayerJob = QBCore.Functions.GetPlayerData().job
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    SendNUIMessage({type = "refresh_accounts"})
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+    SendNUIMessage({type = "refresh_accounts"})
+end)
+
+RegisterNetEvent('QBCore:Client:OnJobUpdate', function(JobInfo)
+    PlayerJob = QBCore.Functions.GetPlayerData().job
     PlayerGang = QBCore.Functions.GetPlayerData().gang
-	isLoggedIn = true
-    SendNUIMessage({type = "refresh_accounts"})
-end)
-
-RegisterNetEvent('QBCore:Client:OnPlayerUnload')
-AddEventHandler('QBCore:Client:OnPlayerUnload', function()
-	isLoggedIn = false
-	PlayerJob = {}
-    SendNUIMessage({type = "refresh_accounts"})
-end)
-
-RegisterNetEvent('QBCore:Client:OnJobUpdate')
-AddEventHandler('QBCore:Client:OnJobUpdate', function(JobInfo)
 	PlayerJob = JobInfo
     SendNUIMessage({type = "refresh_accounts"})
 end)
 
-RegisterNetEvent('QBCore:Client:OnGangUpdate')
-AddEventHandler('QBCore:Client:OnGangUpdate', function(GangInfo)
+RegisterNetEvent('QBCore:Client:OnGangUpdate', function(GangInfo)
+    PlayerJob = QBCore.Functions.GetPlayerData().job
+    PlayerGang = QBCore.Functions.GetPlayerData().gang
     PlayerGang = GangInfo
     SendNUIMessage({type = "refresh_accounts"})
 end)
@@ -62,7 +58,7 @@ RegisterNUICallback("DepositCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Deposit", data.account, data.amount, (data.note ~= nil and data.note or ""), (data.steamid ~= nil and data.steamid or ""))
+    TriggerServerEvent("qb-banking:server:Deposit", data.account, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 RegisterNUICallback("WithdrawCash", function(data, cb)
@@ -74,7 +70,7 @@ RegisterNUICallback("WithdrawCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Withdraw", data.account, data.amount, (data.note ~= nil and data.note or ""), (data.steamid ~= nil and data.steamid or ""))
+    TriggerServerEvent("qb-banking:server:Withdraw", data.account, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 RegisterNUICallback("TransferCash", function(data, cb)
@@ -90,7 +86,7 @@ RegisterNUICallback("TransferCash", function(data, cb)
         return
     end
 
-    TriggerServerEvent("qb-banking:server:Transfer", data.target, data.account, data.amount, (data.note ~= nil and data.note or ""), (data.steamid ~= nil and data.steamid or ""))
+    TriggerServerEvent("qb-banking:server:Transfer", data.target, data.account, data.amount, (data.note ~= nil and data.note or ""))
 end)
 
 
