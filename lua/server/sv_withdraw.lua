@@ -32,14 +32,14 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
     if(account == "business") then
         local job = Player.PlayerData.job
 
-        if not SimpleBanking.Config["business_ranks"][string.lower(job.grade.name)] and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)] then
+        if not job.isboss and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)] then
             return
         end
 
         local low = string.lower(job.name)
         local grade = string.lower(job.grade.name)
 
-        if (SimpleBanking.Config["business_ranks_overrides"][low] and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
+        if (job.isboss and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
 
             return
         end
@@ -63,14 +63,14 @@ AddEventHandler('qb-banking:server:Withdraw', function(account, amount, note, fS
     if(account == "organization") then
         local gang = Player.PlayerData.gang
 
-        if not SimpleBanking.Config["gang_ranks"][string.lower(gang.grade.name)] and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)] then
+        if not gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)] then
             return
         end
 
         local low = string.lower(gang.name)
         local grade = string.lower(gang.grade.name)
 
-        if (SimpleBanking.Config["gang_ranks_overrides"][low] and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
+        if (gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
 
             return
         end
