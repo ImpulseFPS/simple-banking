@@ -6,14 +6,12 @@ AddEventHandler('qb-banking:server:sendPaycheck', function(pAmount, pSource)
     local citizenid = Player.PlayerData.citizenid
     if not citizenid then return end
 
-    local tax = exports['irp-major']:CalculateTax(pAmount, 'global')
-    local total = math.ceil(pAmount - tax)
 
     local result = exports["oxmysql"]:executeSync("SELECT paycheck FROM players WHERE citizenid = ?", {citizenid})
     local data = result[1]
     if data ~= nil then
-        TriggerClientEvent("QBCore:Notify",src,"Dobio si plaču od €"..total, 'primary')
-        local setter = exports["oxmysql"]:executeSync("UPDATE players SET paycheck = paycheck + @amount WHERE citizenid = @citizenid",{ ['citizenid'] = citizenid, ['amount'] = total})
+        TriggerClientEvent("QBCore:Notify",src,"Paycheck of €"..pAmount, 'primary')
+        local setter = exports["oxmysql"]:executeSync("UPDATE players SET paycheck = paycheck + @amount WHERE citizenid = @citizenid",{ ['citizenid'] = citizenid, ['amount'] = pAmount})
     end
 
 end)
