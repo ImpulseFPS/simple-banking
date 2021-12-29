@@ -34,21 +34,21 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
         Player.Functions.RemoveMoney('bank', amount)
         targetPly.Functions.AddMoney('bank', math.floor(amount))
 
-        TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname)
-        TriggerEvent("qb-banking:server:AddToMoneyLog", targetPly.PlayerData.source, "personal", amount, "transfer", Player.PlayerData.charinfo.firstname, "Received $" .. format_int(amount) .. " from " ..Player.PlayerData.charinfo.firstname)
+        AddTransaction(src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname)
+        AddTransaction(targetPly.PlayerData.source, "personal", amount, "transfer", Player.PlayerData.charinfo.firstname, "Received $" .. format_int(amount) .. " from " ..Player.PlayerData.charinfo.firstname)
     end
 
     if (account == "business") then
         local job = Player.PlayerData.job
 
-        if (not SimpleBanking.Config["business_ranks"][string.lower(job.grade.name)] and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)]) then
+        if (not job.isboss and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)]) then
             return
         end
 
         local low = string.lower(job.name)
         local grade = string.lower(job.grade.name)
 
-        if (SimpleBanking.Config["business_ranks_overrides"][low] and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
+        if (job.isboss and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
             return
         end
 
@@ -60,21 +60,21 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             TriggerEvent('qb-banking:society:server:WithdrawMoney', src, amount, society)
             Wait(50)
             targetPly.Functions.AddMoney('cash', amount)
-            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. job.label .. "'s account")
+            AddTransaction(src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. job.label .. "'s account")
         end
     end
 
     if (account == "organization") then
         local gang = Player.PlayerData.gang
 
-        if (not SimpleBanking.Config["business_ranks"][string.lower(gang.grade.name)] and not SimpleBanking.Config["business_ranks_overrides"][string.lower(gang.name)]) then
+        if (not gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)]) then
             return
         end
 
         local low = string.lower(gang.name)
         local grade = string.lower(gang.grade.name)
 
-        if (SimpleBanking.Config["business_ranks_overrides"][low] and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
+        if (gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
             return
         end
 
@@ -86,7 +86,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             TriggerEvent('qb-banking:society:server:WithdrawMoney', src, amount, society)
             Wait(50)
             targetPly.Functions.AddMoney('cash', amount)
-            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. gang.label .. "'s account")
+            AddTransaction(src, "personal", -amount, "transfer", targetPly.PlayerData.charinfo.firstname, "Transfered $" .. format_int(amount) .. " to " .. targetPly.PlayerData.charinfo.firstname .. " from " .. gang.label .. "'s account")
         end
     end
 end)

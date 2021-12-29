@@ -1,19 +1,18 @@
 RegisterServerEvent('qb-banking:server:sendPaycheck')
 AddEventHandler('qb-banking:server:sendPaycheck', function(pAmount, pSource)
-    print('paycheck')
     local src = pSource
     if not src then return end
     local Player = QBCore.Functions.GetPlayer(src)
     local citizenid = Player.PlayerData.citizenid
     if not citizenid then return end
 
-    local tax = QBCore.Functions.GlobalTax(pAmount)
+    local tax = exports['irp-major']:CalculateTax(pAmount, 'global')
     local total = math.ceil(pAmount - tax)
 
     local result = exports["oxmysql"]:executeSync("SELECT paycheck FROM players WHERE citizenid = ?", {citizenid})
     local data = result[1]
     if data ~= nil then
-        TriggerClientEvent("QBCore:Notify",src,"You recived paycheck of €"..total.." (- 15% tax)", 'primary')
+        TriggerClientEvent("QBCore:Notify",src,"Dobio si plaču od €"..total, 'primary')
         local setter = exports["oxmysql"]:executeSync("UPDATE players SET paycheck = paycheck + @amount WHERE citizenid = @citizenid",{ ['citizenid'] = citizenid, ['amount'] = total})
     end
 
@@ -28,18 +27,18 @@ AddEventHandler('qb-banking:server:Paycheck:pickup', function()
     local cid = player.PlayerData.citizenid
     if not cid then return end
 
-    local result = exports.oxmysql:executeSync("SELECT * FROM players WHERE citizenid = ?", {cid})
-    local data = result[1]
-
+    local result = exports.oxmysql:executeSync("SELECT paycheck FROM players WHERE citizenid = ?", {cid})
+    local data = result[1].paycheck
+    print(data)
     if data ~= nil then
-        local paycheck = data.paycheck
-        if paycheck > 0 then
+        local paycheck = tonumber(data)
+        if (paycheck > 0) then
             player.Functions.AddMoney('bank', paycheck)
             local setter = exports.oxmysql:executeSync("UPDATE players SET paycheck = ? WHERE citizenid = ?", {0, cid})
-            TriggerEvent("qb-banking:server:AddToMoneyLog", src, "personal", paycheck, "deposit", "N/A", (note ~= "" and note or "Deposited paycheck of €"..format_int(paycheck).." to a bank account"))
-            TriggerClientEvent("QBCore:Notify",src,"Paycheck of  €"..paycheck.." is deposited to your bank account.", "primary")
+            AddTransaction(src, "personal", paycheck, "deposit", "N/A", (note ~= "" and note or "Plaća od €"..format_int(paycheck)))
+            TriggerClientEvent("QBCore:Notify",src,"Plača od €"..paycheck.." je uplačena na tvoj račun.", "primary")
         else
-            TriggerClientEvent('QBCore:Notify', src, 'There is no paycheck.', 'error')
+            TriggerClientEvent('QBCore:Notify', src, 'Nema Plače', 'error')
         end
     end
 end)

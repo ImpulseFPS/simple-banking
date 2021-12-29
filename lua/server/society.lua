@@ -14,11 +14,14 @@ AddEventHandler('qb-banking:society:server:WithdrawMoney', function(pSource, a, 
     local player = QBCore.Functions.GetPlayer(src)
     if not player then return end
 
+    if not a then return end
+    if not n then return end
+
     local s = GetSociety(n)
     local sMoney = tonumber(s.money)
     local amount = tonumber(a)
     local withdraw = sMoney - amount
-    --exports["oxmysql"]:execute("UPDATE society SET money = '"..withdraw.."' WHERE name = '"..n.."'")
+
     local setter = exports["oxmysql"]:executeSync("UPDATE society SET money =  ? WHERE name = ?", {withdraw, n})
 end)
 
@@ -29,6 +32,9 @@ AddEventHandler('qb-banking:society:server:DepositMoney', function(pSource, a, n
 
     local player = QBCore.Functions.GetPlayer(src)
     if not player then return end
+
+    if not a then return end
+    if not n then return end
 
     local s = GetSociety(n)
     local sMoney = tonumber(s.money)
