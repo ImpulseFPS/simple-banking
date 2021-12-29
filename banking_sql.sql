@@ -7,7 +7,12 @@ CREATE TABLE IF NOT EXISTS `society` (
 
 INSERT INTO `society` (`id`, `name`, `money`) VALUES
 	(1, 'police', '0'),
-	(2, 'lostmc', '0');
+  (2, 'burgershot', '0'),
+  (3, 'vlada', '0'),
+  (4, 'ambulance', '0'),
+  (5, 'realestate', '0'),
+  (6, 'cardealer', '0'),
+  (7, 'mechanic', '0');
 
 CREATE TABLE IF NOT EXISTS `transaction_history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -43,3 +48,17 @@ CREATE TABLE IF NOT EXISTS `players` (
   KEY `last_updated` (`last_updated`),
   KEY `license` (`license`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1;
+
+CREATE TABLE `city` (
+  `type` varchar(255) NOT NULL,
+  `amount` int(11) DEFAULT 15,
+  PRIMARY KEY (`type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `city` (`type`, `amount`) VALUES
+('global', 16),
+('property', 10),
+('vehicle', 9);
+
+

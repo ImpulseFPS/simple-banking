@@ -25,7 +25,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
     end
 
     if (account == "personal") then
-        local balance = Player.PlayerData.money["bank"]--ply.getAccount("bank").money
+        local balance = Player.PlayerData.money["bank"]
 
         if amount > balance then
             return
@@ -41,14 +41,14 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
     if (account == "business") then
         local job = Player.PlayerData.job
 
-        if (not job.isboss and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)]) then
+        if (not SimpleBanking.Config["business_ranks"][string.lower(job.grade.name)] and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)]) then
             return
         end
 
         local low = string.lower(job.name)
         local grade = string.lower(job.grade.name)
 
-        if (job.isboss and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
+        if (SimpleBanking.Config["business_ranks_overrides"][low] and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
             return
         end
 
@@ -67,14 +67,14 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
     if (account == "organization") then
         local gang = Player.PlayerData.gang
 
-        if (not gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)]) then
+        if (not SimpleBanking.Config["gang_ranks"][string.lower(gang.grade.name)] and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)]) then
             return
         end
 
         local low = string.lower(gang.name)
         local grade = string.lower(gang.grade.name)
 
-        if (gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
+        if (SimpleBanking.Config["gang_ranks_overrides"][low] and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
             return
         end
 
