@@ -13,6 +13,12 @@ server_scripts {
     'lua/server/*.lua',
 }
 
+server_exports {
+    'AddTransaction',
+    'GetTaxByType',
+    'CalculateTax',
+}
+
 ui_page 'html/index.html'
 
 files {

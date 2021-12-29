@@ -2,8 +2,8 @@ bMenuOpen = false
 
 QBCore = exports['qb-core']:GetCoreObject()
 local isLoggedIn = false
-PlayerJob = {}
-PlayerGang = {}
+local PlayerJob = {}
+local PlayerGang = {}
 
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
     SendNUIMessage({type = "refresh_accounts"})

@@ -33,14 +33,14 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
         local job = Player.PlayerData.job
         local job_grade = job.grade.name
 
-        if (not job.isboss and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)]) then
+        if (not SimpleBanking.Config["business_ranks"][string.lower(job_grade)] and not SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)]) then
             return
         end
 
         local low = string.lower(job.name)
         local grade = string.lower(job_grade)
 
-        if (job.isboss and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
+        if (SimpleBanking.Config["business_ranks_overrides"][low] and not SimpleBanking.Config["business_ranks_overrides"][low][grade]) then
             return
         end
 
@@ -53,22 +53,21 @@ AddEventHandler('qb-banking:server:Deposit', function(account, amount, note, fSt
 
             Player.Functions.RemoveMoney('cash', deposit)
             TriggerEvent('qb-banking:society:server:DepositMoney', src, deposit, data.name)
-            AddTransaction(src, "business", amount, "deposit", job.label, (note ~= "" and note or "Deposited $"..format_int(amount).." cash into ".. job.label .."'s business account."))        
-        end
+            AddTransaction(src, "business", amount, "deposit", job.label, (note ~= "" and note or "Deposited $"..format_int(amount).." cash into ".. job.label .."'s business account."))        end
     end
 
     if account == "organization"  then
         local gang = Player.PlayerData.gang
         local gang_grade = gang.grade.name
     
-        if (not gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)]) then
+        if (not SimpleBanking.Config["gang_ranks"][string.lower(gang_grade)] and not SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)]) then
             return
         end
     
         local low = string.lower(gang.name)
         local grade = string.lower(gang_grade)
     
-        if (gang.isboss and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
+        if (SimpleBanking.Config["gang_ranks_overrides"][low] and not SimpleBanking.Config["gang_ranks_overrides"][low][grade]) then
             return
         end
     

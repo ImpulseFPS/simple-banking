@@ -19,10 +19,9 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
     }
 
     local job = Player.PlayerData.job
-
+    
     if (job.name and job.grade.name) then
-        if (job.isboss or SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)] and SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)][string.lower(job.grade.name)]) then
-            
+        if(SimpleBanking.Config["business_ranks"][string.lower(job.grade.name)] or SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)] and SimpleBanking.Config["business_ranks_overrides"][string.lower(job.name)][string.lower(job.grade.name)]) then
             local result =  exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {job.name})
             local data = result[1]
 
@@ -39,7 +38,7 @@ QBCore.Functions.CreateCallback("qb-banking:server:GetBankData", function(source
     local gang = Player.PlayerData.gang
 
     if (gang.name and gang.grade.name) then
-        if(gang.isboss or SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)] and SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)][string.lower(gang.grade.name)]) then
+        if(SimpleBanking.Config["gang_ranks"][string.lower(gang.grade.name)] or SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)] and SimpleBanking.Config["gang_ranks_overrides"][string.lower(gang.name)][string.lower(gang.grade.name)]) then
 
             local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {gang.name})
             local data = result[1]
