@@ -72,41 +72,13 @@ AddEventHandler('qb-banking:client:atm:openUI', function() -- this opens ATM
 		end)
 	end
 end)
-
-exports['qb-target']:AddTargetModel(506770882,  {
-    options = {
-        {
-            type = "client",
-            event = "qb-banking:client:atm:openUI",
-            icon = "fas fa-money-check",
-            label = "Access ATM",
-        },
-    },
-    distance = 1.5
-})
-exports['qb-target']:AddTargetModel(-870868698,  {
-    options = {
-        {
-            type = "client",
-            event = "qb-banking:client:atm:openUI",
-            icon = "fas fa-money-check",
-            label = "Access ATM",
-        },
-    },
-    distance = 1.5
-})
-exports['qb-target']:AddTargetModel(-1126237515,  {
-    options = {
-        {
-            type = "client",
-            event = "qb-banking:client:atm:openUI",
-            icon = "fas fa-money-check",
-            label = "Access ATM",
-        },
-    },
-    distance = 1.5
-})
-exports['qb-target']:AddTargetModel(-1364697528,  {
+local ATMS = {
+   `prop_atm_01`,
+   `prop_atm_02`,
+   `prop_atm_03`,
+   `prop_fleeca_atm`,
+}
+exports['qb-target']:AddTargetModel(ATMS,  {
     options = {
         {
             type = "client",
