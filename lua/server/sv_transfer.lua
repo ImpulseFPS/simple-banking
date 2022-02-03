@@ -52,7 +52,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             return
         end
 
-        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {job.name})
+        local result = MySQL.Sync.fetchAll('SELECT * FROM society WHERE name= ?', {job.name})
         local data = result[1]
         if data then
             local society = data.name
@@ -78,7 +78,7 @@ AddEventHandler('qb-banking:server:Transfer', function(target, account, amount, 
             return
         end
 
-        local result = exports["oxmysql"]:executeSync('SELECT * FROM society WHERE name= ?', {gang.name})
+        local result = MySQL.Sync.fetchAll('SELECT * FROM society WHERE name= ?', {gang.name})
         local data = result[1]
         if data then
             local society = data.name
