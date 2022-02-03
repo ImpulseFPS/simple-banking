@@ -8,7 +8,7 @@ end
 
 function GetTaxByType(type)
     if not type then return end
-    local callback = exports["oxmysql"]:executeSync("SELECT * FROM city WHERE type = ?", {type})
+    local callback = MySQL.Sync.fetchAll("SELECT * FROM city WHERE type = ?", {type})
     local data = callback[1].amount
     return data
 end

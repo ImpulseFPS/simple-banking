@@ -9,11 +9,11 @@ AddEventHandler('qb-banking:server:sendPaycheck', function(pAmount, pSource)
     local tax = CalculateTax(pAmount, 'global')
     local total = math.ceil(pAmount - tax)
 
-    local result = exports["oxmysql"]:executeSync("SELECT paycheck FROM players WHERE citizenid = ?", {citizenid})
+    local result = MySQL.Sync.fetchAll("SELECT paycheck FROM players WHERE citizenid = ?", {citizenid})
     local data = result[1]
     if data ~= nil then
         TriggerClientEvent("QBCore:Notify",src,"Paycheck of €"..total, 'primary')
-        local setter = exports["oxmysql"]:executeSync("UPDATE players SET paycheck = paycheck + @amount WHERE citizenid = @citizenid",{ ['citizenid'] = citizenid, ['amount'] = total})
+        local setter = MySQL.Sync.fetchAll("UPDATE players SET paycheck = paycheck + @amount WHERE citizenid = @citizenid",{ ['citizenid'] = citizenid, ['amount'] = total})
     end
 
 end)
@@ -27,14 +27,14 @@ AddEventHandler('qb-banking:server:Paycheck:pickup', function()
     local cid = player.PlayerData.citizenid
     if not cid then return end
 
-    local result = exports.oxmysql:executeSync("SELECT paycheck FROM players WHERE citizenid = ?", {cid})
+    local result = MySQL.Sync.fetchAll("SELECT paycheck FROM players WHERE citizenid = ?", {cid})
     local data = result[1].paycheck
     print(data)
     if data ~= nil then
         local paycheck = tonumber(data)
         if (paycheck > 0) then
             player.Functions.AddMoney('bank', paycheck)
-            local setter = exports.oxmysql:executeSync("UPDATE players SET paycheck = ? WHERE citizenid = ?", {0, cid})
+            local setter = MySQL.Sync.fetchAll("UPDATE players SET paycheck = ? WHERE citizenid = ?", {0, cid})
             AddTransaction(src, "personal", paycheck, "deposit", "N/A", (note ~= "" and note or "Plaća od €"..format_int(paycheck)))
             TriggerClientEvent("QBCore:Notify",src,"Plača od €"..paycheck.." je uplačena na tvoj račun.", "primary")
         else
