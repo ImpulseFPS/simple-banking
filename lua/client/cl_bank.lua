@@ -72,3 +72,164 @@ AddEventHandler('qb-banking:client:atm:openUI', function() -- this opens ATM
 		end)
 	end
 end)
+local ATMS = {
+   `prop_atm_01`,
+   `prop_atm_02`,
+   `prop_atm_03`,
+   `prop_fleeca_atm`,
+}
+exports['qb-target']:AddTargetModel(ATMS,  {
+    options = {
+        {
+            type = "client",
+            event = "qb-banking:client:atm:openUI",
+            icon = "fas fa-money-check",
+            label = "Access ATM",
+        },
+    },
+    distance = 1.5
+})
+
+exports['qb-target']:AddBoxZone("Bank1", vector3(149.07, -1041.16, 29.54), 1.5, 4.5, {
+	name = "Bank1",
+	heading = 160,
+	debugPoly = false,
+	minZ = 28,
+	maxZ = 30.5,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("Bank2", vector3(-1212.98, -331.53, 38.24), 1.5, 4.5, {
+	name = "Bank2",
+	heading = 206,
+	debugPoly = false,
+	minZ = 37,
+	maxZ = 39,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("Bank3", vector3(-2962.16, 482.17, 15.7), 1.5, 4.5, {
+	name = "Bank3",
+	heading = 269,
+	debugPoly = false,
+	minZ = 15,
+	maxZ = 18,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("Bank4", vector3(-112.29, 6469.38, 31.63), 1.5, 4.5, {
+	name = "Bank4",
+	heading = 316,
+	debugPoly = false,
+	minZ = 31,
+	maxZ = 33,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("Bank5", vector3(313.56, -279.7, 54.8), 1.5, 4.5, {
+	name = "Bank5",
+	heading = 160,
+	debugPoly = false,
+	minZ = 53,
+	maxZ = 55,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("Bank6", vector3(-351.51, -49.8, 49.04), 1.5, 4.5, {
+	name = "Bank6",
+	heading = 160,
+	debugPoly = false,
+	minZ = 49,
+	maxZ = 50,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("Bank7", vector3(1175.92, 2707.86, 38.09), 1.5, 4.5, {
+	name = "Bank7",
+	heading = 359.73,
+	debugPoly = false,
+	minZ = 37,
+	maxZ = 39,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
+
+exports['qb-target']:AddBoxZone("BigBank", vector3(242.41, 225.03, 106.29), 1.5, 4.5, {
+	name = "BigBank",
+	heading = 342.44,
+	debugPoly = false,
+	minZ = 105,
+	maxZ = 108,
+	}, {
+		options = {
+			{
+            	type = "client",
+            	event = "qb-banking:client:bank:openUI",
+				icon = "fas fa-piggy-bank",
+				label = "Sign In",
+			},
+		},
+		distance = 2.5
+})
