@@ -1,7 +1,7 @@
 # simple-banking used with QBCore Framework
 # All credits for this go to https://github.com/Pawsative 
 
-###### This is by no means a leak, I talked to the original developer of simple banking and we talked about me releasing this for everyone since he is re-coding the banking and he give me his permission to release it. So huge thanks to him.
+###### OUTDATED CHECK https://github.com/Renewed-Scripts/Renewed-Banking
 
 ###### This banking is NP 3.0 styled banking with business and gang accounts 
 
