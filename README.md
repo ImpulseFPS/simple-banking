@@ -1,7 +1,7 @@
 # simple-banking used with QBCore Framework
 # All credits for this go to https://github.com/Pawsative 
 
-###### OUTDATED CHECK https://github.com/Renewed-Scripts/Renewed-Banking
+# OUTDATED CHECK https://github.com/Renewed-Scripts/Renewed-Banking
 
 ###### This banking is NP 3.0 styled banking with business and gang accounts 
 
